@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>CarpetWars™</title>
+<link rel="stylesheet" type="text/css" href="carpetuc.css" />
+<link rel="apple-touch-icon" href="icon.png"/>
+<script src="Tween.js"></script>
+<script src="carpetwarsc.js"></script>
+<style>
+html, body {
+	padding:0;
+	margin:0;
+	width:320px;
+	height:416px;
+	background-image:url(images/bg.jpg);
+}
+</style>
+<script type="text/javascript">
+window.addEventListener("load", function() { setTimeout(loaded, 100) }, true); 
+function loaded() { document.getElementById("container").style.visibility = "visible"; window.scrollTo(0, 1); }
+var maxRandomQuantity = 5;
+var frequency=40;
+var section="none";
+var score=0;
+var health=100;
+var ptotalmoney=0;
+var ptotalq=0;
+var debt;
+var debtinterest;
+var savings=0;
+var interest;
+var druglist = new Array();
+var portfolio = new Array();
+var randomDrugs = new Array();
+var activedrug;
+var buysell="buy";
+var maxbuy;
+var maxsell;
+var day=1;
+var vlocation="Detroit";
+var probability=new Array(99);
+var drugAlert=2;
+var drugAlertArray=new Array();
+var wallet=20;
+var gun=false;
+var guncost;
+var maxQuantityUsed=0;
+var incrementammt=100;
+var rankArray = new Array();	
+var drug0=new Array();
+var drug1=new Array();
+var drug2=new Array();
+var drug3=new Array();
+var drug4=new Array();
+var drug5=new Array();
+var drug6=new Array();
+var drug7=new Array();
+var tookLoan=0;
+randomDrugs=[0,1,2,3,4,5,6,7,8,9];
+portfolio=[0,0,0,0,0,0,0,0,0,0];
+drug0=["none",0,0];
+drug1=["none",0,0];
+drug2=["none",0,0];
+drug3=["none",0,0];
+drug4=["none",0,0];
+drug5=["none",0,0];
+drug6=["none",0,0];
+drug7=["none",0,0];	
+druglist=[["Weed",300,900,3],["Floods",70,250,3],["Shrooms",600,1400,3],["Crack",1000,3500,2],["Ecstasy",10,60,5],["Opium",500,1300,3],["Hashish",450,1500,3],["Acid",1000,4500,2],["Heroin",5000,14000,1],["Cocaine",15000,30000,1]];	
+drugAlertArray=[" is THE popular item. Prices have shot way up!"," has flooded the market. Prices have greatly decreased!","Welcome to Detroit. Today is Day One! You have 30 days to make money -- or lose it all.  Good luck!<br/><br/>Your van can only hold "+wallet+" of those .","Looks like a cleaning kind of day!","Watch your bank balance!","The claims adjuster is on to you.","Beware of cleaning scams.","Keep going, carpets don't clean themselves.","You gotta clean deeper if you wanna get out of debt!"];
+rankArray=[["Worst Clean Ever!","Complete Disaster","Look for a different like of work...","Can't clean a lick."],["Alright I guess.","I could have done that but it's not bad","Coming Up Clean Machine","Apprentice to the Master"],["Master Disaster Blaster","King Karpet Kleaner","National Cleaning Co.","The Ultimate Rug Doctor!"]];
+</script>
+</head>
+<body onload="onLoadDoThis()">
+<div id="container"></div>
+<div id="Helpdiv">
+	<div style="color:white;font-family:Helvetica, sans-serif;font-size:12.2px;text-align:justify;font-weight:100;text-shadow:#5e666e 2px 2px;text-indent:1em">CarpetWars is a game about being in the right place at the right time. Bad weather means higher prices for your service. When you start a new game, you have the option for 3 different loans each with their own daily interest rate.
+  <p/>
+  Each day the market will present you with a random selection of 8 of 10 types of cleaning equipment. Each kind has it’s own price and occasionally, a bad storm or floods may dramatically increase or decrease the value and need of the stuff you have on you. To buy or sell stuff, tap on it’s name to bring up the Buy/Sell window. Tap on 'buy' or 'sell' to switch between the two options.
+  <p/>
+  To travel to a new city, select the travel tab, then the city you want to go to. As you travel, you may encounter angry insurance adjusters, lying customers, other cleaning companies, franchisers and more!
+  <p/>
+  The 'Bank' tab is where you pay back your debt (if you can) and deposit or withdraw money from your savings account (if you got it). Every day, the debt will grow based on the interest of the loan you took out, and your savings will grow based on the interest rate of the bank. You can apply for up to $10,000 in loans per day.</div>
+  <div class="travelbut" style="top:316px;left:75px" onClick="parent.location='mailto:carpet.seasons@gmail.com'">Sponsored By</div>
+  <div class="travelbut" style="top:354px;left:75px" onClick="viewScore()">View High Scores</div>
+  <div style="position:absolute;top:-6px;left:-6px;width:23px;height:23px;background-image:url(images/but_close.png)" onclick="closeHelp()"></div>
+  <form name="viewhighscore" action="scores.php" method="post" target="_blank">
+    <input type="hidden" name="filename" value="scores/scores.sco"/>
+    <input type="hidden" name="scoresize" value="10"/>
+    <input type="hidden" name="action" value="VIEW"/>
+    <input type="hidden" name="winscore" value=0/>
+    <input type="hidden" name="winname" value="none"/>
+    <input type="hidden" name="viewtype" value="HTML"/>
+  </form>
+</div>
+<div id="gamebox"></div>
+<!-- game menu -->
+<div id="gamemenu">
+  <div style="position:absolute;top:6px;left:6px;width:292px;height:245px;background-color:#647780;-webkit-border-radius: 8px 8px;">
+    <div style="position:absolute;top:6px;left:6px;color:white;font-family:Helvetica, sans-serif;font-size:14px;font-weight:100;text-shadow:#00263b 2px 2px">Think you got what it takes to keep carpets clean in these parts? This game's about cleaning, if you can handle it, you'll expand fast. But first you’ll might need a loan to buy some items.</br>
+      <p>Pick out a loan below. You gotta pay it back! 32 days to pay, plus interest!</p>
+    </div>
+  </div>
+  <div class="travelbut" style="top:138px;left:78px" onclick="startGame(2500,.03)">$2,500 (3%)</div>
+  <div class="travelbut" style="top:174px;left:78px" onclick="startGame(5000,.05)">$5,000 (5%)</div>
+  <div class="travelbut" style="top:210px;left:78px" onclick="startGame(7500,.07)">$7,500 (7%)</div>
+</div>
+<!-- game content -->
+<div id="mask">
+  <div id="content">
+    <div id="alertBox">
+      <div style="position:absolute;top:-73px;left:-4px;width:302px;height:260px;background-color:#333333;opacity:.5;z-index:-1;"></div>
+      <a id="alertText"></a> <br />
+      <br />
+      <div id="alertOK" onclick="closeAlert()"></div>
+    </div>
+    <div id="blackMarket">
+      <div style="position:absolute;top:-50px;left:-4px;width:302px;height:260px;background-color:#333333;opacity:.5;z-index:-1;"></div>
+      <a id="alertText2"></a> <br />
+      <br />
+      <div id="alertButtons">
+        <div class="alertButton" style="left:16px;top:8px" onclick="closeblackMarket(true)">Sure</div>
+        <div class="alertButton" style="left:16px;top:42px" onclick="closeblackMarket(false)">No Way</div>
+      </div>
+    </div>
+    <div id="claimGame">
+      <div style="position:absolute;top:-50px;left:-4px;width:302px;height:260px;background-color:#333333;opacity:.5;z-index:-1;"></div>
+      <a id="alertText3"></a> <br />
+      <br />
+      <div id="alertButtons">
+        <div class="alertButton" style="left:16px;top:8px" onclick="closeclaimGame(true)">Mitigate</div>
+        <div class="alertButton" style="left:16px;top:42px" onclick="closeclaimGame(false)">Settle</div>
+      </div>
+    </div>
+    <div style="position:absolute;top:5px;left:5px;width:52px;height:14px;background-image:url(images/mkt_avail.png)"></div>
+    <div style="position:absolute;top:5px;left:128px;width:46px;height:14px;background-image:url(images/mkt_item.png)"></div>
+    <div style="position:absolute;top:5px;left:257px;width:39px;height:14px;background-image:url(images/mkt_own.png)"></div>
+    <div class="marketBox" style="width:45px;top:25px;left: 5px"><a id="q0"></a></div>
+    <div class="marketBox" style="width:187px;top:25px;left:58px" onclick="openbuysell(0)"><a id="slot0"></a></div>
+    <div class="marketBox" style="width:45px;top:25px;left:253px"><a id="p0"></a></div>
+    <div class="marketBox" style="width:45px;top:54px;left:5px"><a id="q1"></a></div>
+    <div class="marketBox" style="width:187px;top:54px;left:58px" onclick="openbuysell(1)"><a id="slot1"></a></div>
+    <div class="marketBox" style="width:45px;top:54px;left:253px"><a id="p1"></a></div>
+    <div class="marketBox" style="width:45px;top:84px;left:5px"><a id="q2"></a></div>
+    <div class="marketBox" style="width:187px;top:84px;left:58px" onclick="openbuysell(2)"><a id="slot2"></a></div>
+    <div class="marketBox" style="width:45px;top:84px;left:253px"><a id="p2"></a></div>
+    <div class="marketBox" style="width:45px;top:113px;left:5px"><a id="q3"></a></div>
+    <div class="marketBox" style="width:187px;top:113px;left:58px" onclick="openbuysell(3)"><a id="slot3"></a></div>
+    <div class="marketBox" style="width:45px;top:113px;left:253px"><a id="p3"></a></div>
+    <div class="marketBox" style="width:45px;top:142px;left:5px"><a id="q4"></a></div>
+    <div class="marketBox" style="width:187px;top:142px;left:58px" onclick="openbuysell(4)"><a id="slot4"></a></div>
+    <div class="marketBox" style="width:45px;top:142px;left:253px"><a id="p4"></a></div>
+    <div class="marketBox" style="width:45px;top:171px;left:5px"><a id="q5"></a></div>
+    <div class="marketBox" style="width:187px;top:171px;left:58px" onclick="openbuysell(5)"><a id="slot5"></a></div>
+    <div class="marketBox" style="width:45px;top:171px;left:253px"><a id="p5"></a></div>
+    <div class="marketBox" style="width:45px;top:201px;left:5px"><a id="q6"></a></div>
+    <div class="marketBox" style="width:187px;top:201px;left:58px" onclick="openbuysell(6)"><a id="slot6"></a></div>
+    <div class="marketBox" style="width:45px;top:201px;left:253px"><a id="p6"></a></div>
+    <div class="marketBox" style="width:45px;top:230px;left:5px"><a id="q7"></a></div>
+    <div class="marketBox" style="width:187px;top:230px;left:58px" onclick="openbuysell(7)"><a id="slot7"></a></div>
+    <div class="marketBox" style="width:45px;top:230px;left:253px"><a id="p7"></a></div>
+    <div id="buysellpop">
+      <div style="position:absolute;top:-53px;left:-4px;width:302px;height:260px;background-color:#333333;opacity:.5"></div>
+      <div id="buybutton"></div>
+      <div id="buybuttonoff" onclick="pushbuyoff()"></div>
+      <div id="sellbutton"></div>
+      <div id="sellbuttonoff" onclick="pushselloff()"></div>
+      <div style="position:absolute;top:85px;left:8px;width:278px;height:27px;background-color:#313a43;-webkit-border-radius: 4px 4px;color:white;font-family:Helvetica, sans-serif;font-size:16px;text-align:center;line-height:1.7em;font-weight:100;text-shadow:#5e666e 2px 2px"><a id=walletSize></a></div>
+      <div style="position:absolute;top:47px;left:8px;width:45px;height:28px;background-image:url(images/but_min.jpg)"onclick="minQuantity()"></div>
+      <div style="position:absolute;top:47px;left:59px;width:28px;height:28px;background-image:url(images/but_minus.jpg)"onclick="downQuantity()"></div>
+      <div style="position:absolute;top:47px;left:207px;width:28px;height:28px;background-image:url(images/but_plus.jpg)"onclick="upQuantity()"></div>
+      <div style="position:absolute;top:47px;left:241px;width:45px;height:28px;background-image:url(images/but_max.jpg)"onclick="maxQuantity()"></div>
+      <div style="position:absolute;top:122px;left:76px;width:45px;height:28px;background-image:url(images/but_ok.jpg)"onclick="closebuysell(true)"></div>
+      <div style="position:absolute;top:122px;left:130px;width:89px;height:28px;background-image:url(images/but_cancel.jpg)"onclick="closebuysell(false)"></div>
+      <div class="numback" style="top:9px;left:77px"></div>
+      <div class="numback" style="top:9px;left:99px"></div>
+      <div class="numback" style="top:9px;left:121px"></div>
+      <div class="numback" style="top:9px;left:143px"></div>
+      <div class="numback" style="top:9px;left:165px"></div>
+      <div class="numback" style="top:9px;left:187px"></div>
+      <div class="numback" style="top:9px;left:209px"></div>
+      <div class="numback" style="top:47px;left:105px"></div>
+      <div class="numback" style="top:47px;left:127px"></div>
+      <div class="numback" style="top:47px;left:149px"></div>
+      <div class="numback" style="top:47px;left:171px"></div>
+      <div class="numtop" style="top:11px;left:76px"></div>
+      <div class="numtop" style="top:11px;left:98px"></div>
+      <div class="numtop" style="top:11px;left:120px"></div>
+      <div class="numtop" style="top:11px;left:142px"></div>
+      <div class="numtop" style="top:11px;left:164px"></div>
+      <div class="numtop" style="top:11px;left:186px"></div>
+      <div class="numtop" style="top:11px;left:208px"></div>
+      <div class="numtop" style="top:50px;left:104px"></div>
+      <div class="numtop" style="top:50px;left:126px"></div>
+      <div class="numtop" style="top:50px;left:148px"></div>
+      <div class="numtop" style="top:50px;left:170px"></div>
+      <div class="numberFont" style="color:#FFFFFF;top:10px;left:61px;z-index:4">$</div>
+      <div class="numberFont" style="top:10px;left:80px;z-index:4"> <a id="buyselltotal"></a> </div>
+      <div class="numberFont" style="top:49px;left:108px;z-index:4"> <a id="buysellquantity"></a> </div>
+    </div>
+    <!-- END Market Section -->
+    <div id="travelID">
+      <div style="position:absolute;background-color:#647780;top:18px;left:62px;width:181px;height:227px;-webkit-border-radius: 8px 8px">
+        <div style="position:absolute;top:14px;left:51px;font-family:Helvetica, sans-serif;text-shadow:#00263b 2px 2px;color:white;font-weight:900"><a id="dateArea"></a></div>
+        <div class="travelbut" style="top:43px" onclick="newDay('Detroit')">Detroit, MI</div>
+        <div class="travelbut" style="top:79px" onclick="newDay('Cleveland')">Cleveland, OH</div>
+        <div class="travelbut" style="top:115px" onclick="newDay('SouthBend')">South Bend, IN</div>
+        <div class="travelbut" style="top:151px" onclick="newDay('Chicago')">Chicago, IL</div>
+        <div class="travelbut" style="top:187px" onclick="newDay('Milwaukee')">Milwaukee, WI</div>
+      </div>
+    </div>
+    <!-- END Travel Section -->
+    <div id="bankID">
+      <div style="position:absolute;background-color:#132531;top:6px;left:5px;width:294px;height:81px;-webkit-border-radius: 8px 8px">
+        <div style="position:absolute;top:44px;left:8px;width:99px;height:28px;background-image:url(images/but_payback.jpg);" onclick="slideup('payback')"></div>
+        <div style="position:absolute;top:44px;left:115px;width:150px;height:28px;background-image:url(images/but_loan.jpg);" onclick="slideup('loan')"></div>
+        <div style="position:absolute;top:10px;left:8px;color:#FFFFFF;font-family:Helvetica, sans-serif;font-size:20px;font-weight:100">Total Debt</div>
+        <div style="position:absolute;top:10px;left:118px;color:#FFFFFF;font-family:Helvetica, sans-serif;font-size:20px;font-weight:100">$</div>
+        <div class="numberFont" style="top:10px;left:139px;z-index:4"> <a id="totalDebt"></a> </div>
+        <div class="numback" style="top:8px; left:136px"></div>
+        <div class="numback" style="top:8px; left:158px"></div>
+        <div class="numback" style="top:8px; left:180px"></div>
+        <div class="numback" style="top:8px; left:202px"></div>
+        <div class="numback" style="top:8px; left:224px"></div>
+        <div class="numback" style="top:8px; left:246px"></div>
+        <div class="numback" style="top:8px; left:268px"></div>
+        <div class="numtop" style="top:11px; left:135px"></div>
+        <div class="numtop" style="top:11px; left:157px"></div>
+        <div class="numtop" style="top:11px; left:179px"></div>
+        <div class="numtop" style="top:11px; left:201px"></div>
+        <div class="numtop" style="top:11px; left:223px"></div>
+        <div class="numtop" style="top:11px; left:245px"></div>
+        <div class="numtop" style="top:11px; left:267px"></div>
+      </div>
+      <div style="position:absolute;background-color:#132531;top:93px;left:5px;width:294px;height:110px;-webkit-border-radius: 8px 8px">
+        <div style="position:absolute;top:44px;left:8px;width:88px;height:28px;background-image:url(images/but_deposit.jpg);" onclick="slideup('deposit')"></div>
+        <div style="position:absolute;top:44px;left:104px;width:111px;height:28px;background-image: url(images/but_withdraw.jpg);" onclick="slideup('withdraw')"></div>
+        <div style="position:absolute;top:10px;left:8px;color:#FFFFFF;font-family:Helvetica, sans-serif;font-size:20px;font-weight:100">Savings</div>
+        <div style="position:absolute;top:10px;left:118px;color:#FFFFFF;font-family:Helvetica, sans-serif;font-size:20px;font-weight:100">$</div>
+        <div style="position:absolute;top:80px;left:8px;color:#FFFFFF;font-family:Helvetica, sans-serif;font-size:20px;font-weight:100">Savings Acct. Interest %</div>
+        <div class="numberFont" style="top:10px;left:139px;z-index:4"> <a id="totalSavings"></a> </div>
+        <div class="numback" style="top:8px; left:136px"></div>
+        <div class="numback" style="top:8px; left:158px"></div>
+        <div class="numback" style="top:8px; left:180px"></div>
+        <div class="numback" style="top:8px; left:202px"></div>
+        <div class="numback" style="top:8px; left:224px"></div>
+        <div class="numback" style="top:8px; left:246px"></div>
+        <div class="numback" style="top:8px; left:268px"></div>
+        <div class="numtop" style="top:11px; left:135px"></div>
+        <div class="numtop" style="top:11px; left:157px"></div>
+        <div class="numtop" style="top:11px; left:179px"></div>
+        <div class="numtop" style="top:11px; left:201px"></div>
+        <div class="numtop" style="top:11px; left:223px"></div>
+        <div class="numtop" style="top:11px; left:245px"></div>
+        <div class="numtop" style="top:11px; left:267px"></div>
+        <div style="position:absolute;background-color:#FFFFFF;top:76px;left:244px;width:41px;height:27px;-webkit-border-radius: 8px 8px;color:#132531;font-family:Helvetica, sans-serif;font-size:20px;text-align:center;line-height:1.4em"><a id="interestBox"></a></div>
+      </div>
+      <div id="bankbottom">
+        <div id="arrowIndicator"></div>
+        <div class="numberFont" style="top:10px;left:97px;z-index:4"> <a id="bankingArea"></a> </div>
+        <div style="position:absolute;top:8px;left:8px;width:45px;height:28px;background-image:url(images/but_min.jpg)"onclick="bankmin()"></div>
+        <div style="position:absolute;top:8px;left:59px;width:28px;height:28px;background-image:url(images/but_minus.jpg)"onclick="bankdec()"></div>
+        <div style="position:absolute;top:8px;left:207px;width:28px;height:28px;background-image:url(images/but_plus.jpg)"onclick="bankinc()"></div>
+        <div style="position:absolute;top:8px;left:241px;width:45px;height:28px;background-image:url(images/but_max.jpg)"onclick="bankmax()"></div>
+        <div style="position:absolute;top:44px;left:76px;width:45px;height:28px;background-image:url(images/but_ok.jpg)" onclick="slidedown(true)"></div>
+        <div style="position:absolute;top:44px;left:130px;width:89px;height:28px;background-image:url(images/but_cancel.jpg)" onclick="slidedown(false)"></div>
+        <div class="numback" style="top:9px; left:94px"></div>
+        <div class="numback" style="top:9px; left:116px"></div>
+        <div class="numback" style="top:9px; left:138px"></div>
+        <div class="numback" style="top:9px; left:160px"></div>
+        <div class="numback" style="top:9px; left:182px"></div>
+        <div class="numtop" style="top:12px; left:93px" onclick="setIncAmmt(10000)"></div>
+        <div class="numtop" style="top:12px; left:115px" onclick="setIncAmmt(1000)"></div>
+        <div class="numtop" style="top:12px; left:137px" onclick="setIncAmmt(100)"></div>
+        <div class="numtop" style="top:12px; left:159px" onclick="setIncAmmt(10)"></div>
+        <div class="numtop" style="top:12px; left:181px"></div>
+        <div style="position:relative;top:102%;font-family:Helvetica, sans-serif;font-size:12px;text-align:center;color:132531">tap number area to change increment amount</div>
+      </div>
+    </div>
+    <!-- END Bank Section -->
+    <div id="endGameBox">
+      <div style="position:absolute;top:15px;left:40px;font-family:Helvetica, sans-serif;text-shadow:#00263b 2px 2px;color:white;font-weight:100;text-align:center">Today is the end of the season.<br/>
+        Let's see if you cleaned up?</div>
+      <div class="travelbut" style="top:58px;left:75px" onclick="endGame()">End Game</div>
+    </div>
+    <!-- END endGame Section -->
+    <div id="finalPop">
+      <div id="finalPopContent">
+        <div class="numberFont" style="top:-50px;left:74px;z-index:4"><a id="finalScoreBox"></a></div>
+        <div class="numback" style="top:-52px; left:71px"></div>
+        <div class="numback" style="top:-52px; left:93px"></div>
+        <div class="numback" style="top:-52px; left:115px"></div>
+        <div class="numback" style="top:-52px; left:137px"></div>
+        <div class="numback" style="top:-52px; left:159px"></div>
+        <div class="numback" style="top:-52px; left:181px"></div>
+        <div class="numback" style="top:-52px; left:203px"></div>
+        <div class="numtop" style="top:-49px; left:70px"></div>
+        <div class="numtop" style="top:-49px; left:92px"></div>
+        <div class="numtop" style="top:-49px; left:114px"></div>
+        <div class="numtop" style="top:-49px; left:136px"></div>
+        <div class="numtop" style="top:-49px; left:158px"></div>
+        <div class="numtop" style="top:-49px; left:180px"></div>
+        <div class="numtop" style="top:-49px; left:202px"></div>
+        <div style="position:absolute;top:-16px;left:3px;width:278px;height:56px;background-color:#313a43;-webkit-border-radius: 4px 4px;color:white;font-family:Helvetica, sans-serif;font-size:16px;text-align:center;line-height:1.7em;font-weight:100;text-shadow:#5e666e 2px 2px">Your Rank Is:<br/>
+          <a id=rankBox></a></div>
+        <div style="position:absolute;top:-75px;left:78px;color:white;font-family:Helvetica, sans-serif;font-size:16px;text-align:center;font-weight:100;text-shadow:#5e666e 2px 2px">Your final score is:</div>
+        <form name="highscore" action="scores.php" method="post" target="_blank">
+          <div style="position:absolute;top:46px;left:70px" >
+            <input type="text" name="winname">
+          </div>
+          <input type="hidden" name="filename" value="scores/scores.sco"/>
+          <input type="hidden" name="scoresize" value="10"/>
+          <input type="hidden" name="action" value="INSERT"/>
+          <input type="hidden" name="winscore"/>
+          <input type="hidden" name="viewtype" value="HTML"/>
+        </form>
+        <div class="travelbut" style="top:78px;left:65px" onClick="submitScore()">Submit Score</div>
+      </div>
+    </div>
+    <!-- END finalpop Section -->
+  </div>
+</div>
+<div id="maininfobox">
+  <div id="symbol_money"></div>
+  <div id="symbol_heart"></div>
+  <div class="numberFont" style="top:6px;left:38px;z-index:4"> <a id="totalMoney"></a> </div>
+  <div class="numberFont" style="top:6px;left:227px;z-index:4"> <a id="totalHealth"></a> </div>
+  <div class="numback" style="top:4px; left:35px"></div>
+  <div class="numback" style="top:4px; left:57px"></div>
+  <div class="numback" style="top:4px; left:79px"></div>
+  <div class="numback" style="top:4px; left:101px"></div>
+  <div class="numback" style="top:4px; left:123px"></div>
+  <div class="numback" style="top:4px; left:145px"></div>
+  <div class="numback" style="top:4px; left:167px"></div>
+  <div class="numback" style="top:4px; left:224px"></div>
+  <div class="numback" style="top:4px; left:246px"></div>
+  <div class="numback" style="top:4px; left:268px"></div>
+  <div class="numtop" style="top:7px; left:34px"></div>
+  <div class="numtop" style="top:7px; left:56px"></div>
+  <div class="numtop" style="top:7px; left:78px"></div>
+  <div class="numtop" style="top:7px; left:100px"></div>
+  <div class="numtop" style="top:7px; left:122px"></div>
+  <div class="numtop" style="top:7px; left:144px"></div>
+  <div class="numtop" style="top:7px; left:166px"></div>
+  <div class="numtop" style="top:7px; left:223px"></div>
+  <div class="numtop" style="top:7px; left:245px"></div>
+  <div class="numtop" style="top:7px; left:267px"></div>
+</div>
+<div id="maininfobox_shad"></div>
+<div class="tabs" id="tabmarket"></div>
+<div class="tabs" id="tabtravel"></div>
+<div class="tabs" id="tabbank"></div>
+<div class="tabson" id="tabmarketon"></div>
+<div class="tabson" id="tabtravelon"></div>
+<div class="tabson" id="tabbankon"></div>
+<div class="tablabel" id="tablabel_market" onclick="marketclick()"></div>
+<div class="tablabel" id="tablabel_travel" onclick="travelclick()"></div>
+<div class="tablabel" id="tablabel_bank" onclick="bankclick()"></div>
+<div class="topbar" id="topleft" onclick="loadmainmenu()"></div>
+<div class="topbar" id="topmiddle"></div>
+<div class="topbar" id="topright" onclick="openHelp()"></div>
+</body>
+</html>

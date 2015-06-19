@@ -1,0 +1,426 @@
+@charset "UTF-8";
+#container {
+position: absolute;
+top: 0px;
+left: 0px;
+
+/*background-image: url(images/carpetbg.jpg); */
+
+width: 320px;
+height: 480px;
+float: left;
+z-index: -1
+}
+#gamebox {
+position: absolute;
+top: 107px;
+left: 8px;
+background-color: #b7bcc1;
+width: 304px;
+height: 366px;
+z-index: 0;
+visibility: visibleborder-radius-bottomright:10px;
+-webkit-border-bottom-right-radius: 10px;
+border-radius-bottomleft: 10px;
+-webkit-border-bottom-left-radius: 10px
+}
+.tabs {
+position: absolute;
+top: 59px;
+width: 129px;
+height: 48px;
+background-image: url(images/tab.png)
+}
+#tabmarket {
+left: 0px;
+visibility: visible;
+z-index: 2
+}
+#tabtravel {
+left: 102px;
+visibility: visible;
+z-index: 1
+}
+#tabbank {
+width: 120px;
+left: 200px;
+visibility: visible;
+z-index: 0
+}
+.tabson {
+position: absolute;
+top: 59px;
+width: 129px;
+height: 48px;
+background-image: url(images/tab_on.png)
+}
+#tabmarketon {
+left: 0px;
+visibility: hidden;
+z-index: 2
+}
+#tabtravelon {
+left: 102px;
+visibility: hidden;
+z-index: 1
+}
+#tabbankon {
+width: 120px;
+left: 200px;
+visibility: hidden;
+z-index: 0
+}
+.topbar {
+position: absolute;
+visibility: visible;
+z-index: 0
+}
+#topleft {
+top: 19px;
+left: 8px;
+width: 107px;
+height: 37px;
+background-image: url(images/topbar_left.png)
+}
+#topmiddle {
+top: 4px;
+left: 115px;
+width: 103px;
+height: 63px;
+background-image: url(images/topbar_middle.png)
+}
+#topright {
+top: 19px;
+left: 218px;
+width: 95px;
+height: 37px;
+background-image: url(images/topbar_right.png)
+}
+#maininfobox {
+position: absolute;
+width: 294px;
+height: 34px;
+top: 444px;
+left: 13px;
+-webkit-border-radius: 8px 8px;
+z-index: 2;
+background-color: #132531
+}
+#maininfobox_shad {
+position: absolute;
+width: 294px;
+height: 34px;
+top: 445px;
+left: 13px;
+-webkit-border-radius: 8px 8px;
+z-index: 1;
+background-color: #FFF
+}
+.tablabel {
+position: absolute;
+top: 79px;
+z-index: 4
+}
+#tablabel_market {
+left: 30px;
+width: 62px;
+height: 21px;
+background-image: url(images/label_market.png)
+}
+#tablabel_travel {
+left: 132px;
+width: 56px;
+height: 21px;
+background-image: url(images/label_travel.png)
+}
+#tablabel_bank {
+left: 245px;
+width: 56px;
+height: 21px;
+background-image: url(images/label_bank.png)
+}
+#symbol_money {
+position: absolute;
+top: 7px;
+left: 9px;
+width: 19px;
+height: 21px;
+background-image: url(images/sym_money.jpg);
+z-index: 3
+}
+#symbol_heart {
+position: absolute;
+top: 7px;
+left: 191px;
+width: 27px;
+height: 21px;
+background-image: url(images/sym_heart.jpg);
+z-index: 3
+}
+.numback {
+position: absolute;
+width: 17px;
+height: 26px;
+background-color: #cecece;
+-webkit-border-radius: 4px 4px;
+z-index: 3
+}
+.numtop {
+position: absolute;
+width: 19px;
+height: 19px;
+z-index: 5;
+background-image: url(images/num_shine.png)
+}
+.numberFont {
+position: absolute;
+font-size: 20px;
+font-family: Helvetica,sans-serif;
+font-weight: 900;
+letter-spacing: 11px;
+color: #00253f
+}
+#content {
+position: absolute;
+top: 107px;
+left: 8px;
+width: 304px;
+height: 260px;
+visibility: hidden;
+z-index: 1
+}
+.marketBox {
+position: absolute;
+-webkit-border-radius: 8px 8px;
+background-color: #FFF;
+height: 24px;
+text-align: center;
+line-height: 1.7em;
+font-family: Helvetica,sans-serif;
+font-size: 14px;
+color: #0f1e2a
+}
+#buysellpop {
+position: absolute;
+top: 53px;
+left: 5px;
+width: 294px;
+height: 160px;
+background-color: #050e19;
+-webkit-border-radius: 8px 8px;
+visibility: hidden
+}
+#buybutton {
+position: absolute;
+left: 8px;
+top: 8px;
+background-image: url(images/but_buy.jpg);
+width: 45px;
+height: 28px;
+visibility: hidden
+}
+#buybuttonoff {
+position: absolute;
+left: 8px;
+top: 8px;
+background-image: url(images/but_buyoff.jpg);
+width: 45px;
+height: 28px;
+visibility: hidden
+}
+#sellbutton {
+position: absolute;
+left: 241px;
+top: 8px;
+background-image: url(images/but_sell.jpg);
+width: 45px;
+height: 28px;
+visibility: hidden
+}
+#sellbuttonoff {
+position: absolute;
+left: 241px;
+top: 8px;
+background-image: url(images/but_selloff.jpg);
+width: 45px;
+height: 28px;
+visibility: hidden
+}
+.travelbut {
+position: absolute;
+left: 16px;
+width: 149px;
+height: 28px;
+background-image: url(images/but_travel.jpg);
+font-family: Helvetica,sans-serif;
+text-shadow: #00263b 2px 2px;
+color: white;
+font-weight: 900;
+text-align: center;
+line-height: 1.7em
+}
+#travelID {
+position: absolute;
+top: 0px;
+left: 0px;
+visibility: hidden
+}
+#bankID {
+position: absolute;
+top: 0px;
+left: 0px;
+visibility: hidden
+}
+#alertBox {
+position: absolute;
+top: 73px;
+left: 5px;
+width: 282px;
+background-color: #050e19;
+-webkit-border-radius: 8px 8px;
+padding: 6px;
+z-index: 6;
+visibility: hidden;
+color: white;
+font-family: Helvetica,sans-serif;
+font-size: 14px;
+font-weight: 100
+}
+#blackMarket {
+position: absolute;
+top: 50px;
+left: 5px;
+width: 282px;
+background-color: #050e19;
+-webkit-border-radius: 8px 8px;
+padding: 6px;
+z-index: 6;
+visibility: hidden;
+color: white;
+font-family: Helvetica,sans-serif;
+font-size: 14px;
+font-weight: 100
+}
+#claimGame {
+position: absolute;
+top: 50px;
+left: 5px;
+width: 282px;
+background-color: #050e19;
+-webkit-border-radius: 8px 8px;
+padding: 6px;
+z-index: 6;
+visibility: hidden;
+color: white;
+font-family: Helvetica,sans-serif;
+font-size: 14px;
+font-weight: 100
+}
+#alertOK {
+position: relative;
+left: 125px;
+width: 45px;
+height: 28px;
+background-image: url(images/but_ok.jpg)
+}
+.alertButton {
+position: absolute;
+width: 149px;
+height: 28px;
+background-image: url(images/but_travel.jpg);
+font-family: Helvetica,sans-serif;
+text-shadow: #00263b 2px 2px;
+color: white;
+font-weight: 900;
+text-align: center;
+line-height: 1.7em
+}
+#alertButtons {
+position: relative;
+background-color: #647780;
+left: 52px;
+width: 181px;
+height: 80px;
+-webkit-border-radius: 8px 8px
+}
+#endGameBox {
+position: absolute;
+background-color: #647780;
+top: 83px;
+left: 5px;
+width: 294px;
+height: 100px;
+-webkit-border-radius: 8px 8px;
+z-index: 6;
+visibility: hidden
+}
+#mask {
+position: absolute;
+top: 0px;
+left: 0px;
+width: 320px;
+height: 416px;
+clip: rect(107px,312px,367px,9px)
+}
+#gamemenu {
+position: absolute;
+top: 107px;
+left: 8px;
+width: 304px;
+height: 301px;
+z-index: 5;
+visibility: hidden
+}
+#bankbottom {
+position: absolute;
+background-color: #132531;
+top: 209px;
+left: 5px;
+width: 294px;
+height: 81px;
+-webkit-border-radius: 8px 8px;
+opacity: .5
+}
+#arrowIndicator {
+position: absolute;
+background-image: url(images/arrow.jpg);
+width: 9px;
+height: 5px;
+top: 0px;
+left: 142px
+}
+#finalPop {
+position: absolute;
+background-color: #647780;
+top: 83px;
+left: 5px;
+width: 294px;
+height: 100px;
+-webkit-border-radius: 8px 8px;
+z-index: 6;
+visibility: hidden
+}
+#finalPopContent {
+position: absolute;
+top: 83px;
+left: 5px;
+width: 294px;
+height: 100px;;
+z-index: 7;
+visibility: hidden
+}
+#Helpdiv {
+border-color: #050e19;
+border-width: 2px;
+border-style: solid;
+position: absolute;
+top: 8px;
+left: 8px;
+width: 289px;
+height: 384px;
+background-color: #647780;
+padding: 6px;
+-webkit-border-radius: 8px 8px;
+z-index: 8;
+visibility: hidden
+}
